@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="ISO-8859-1">
+
+    <title>Registration and Login App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="#" th:href="@{/}">Registration and Login Module</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br>
+    <br>
+
+    <div class="container">
+        <h1>Registration and login with Spring Boot, Spring Security, Thymeleaft, Hibernate and MySQL</h1>
+        Wlcome <span sec:authentication="principal.username">User</span>
+
+    </div>
+
+    <div>
+
+        <form th:action="@{/users/save}" th:object="${user}" method="post" style="max-width: 600px; margin: 0 auto;">
+            <input type="hidden" th:field="*{userId}" />
+            <input type="hidden" th:field="*{userPassword}" />
+            
+            
+            
+            <div class="m-3">
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">E-mail: </label>
+                    <div class="col-8">
+                        <input type="email" th:field="*{userEmail}" class="form-control" required />
+                    </div>
+                </div>
+
+<!--                <div class="form-group row">
+                    <label class="col-4 col-form-label">Password: </label>
+                    <div class="col-8">
+                        <input type="password" th:field="*{userPassword}" class="form-control" required minlength="6"
+                            maxlength="10" />
+                    </div>
+                </div> !-->
+
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">First Name: </label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{userFirstName}" class="form-control" required minlength="2"
+                            maxlength="20" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Last Name: </label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{userLastName}" class="form-control" required minlength="2"
+                            maxlength="20" />
+                    </div>
+                </div>
+
+                
+                
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Age: </label>
+                    <div class="col-8">
+                        <input type="number" th:field="*{userAge}" class="form-control" required minlength="2"
+                            maxlength="20" />
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Gender: </label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{userGender}" class="form-control" required minlength="2"
+                            maxlength="20" />
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Phone Number: </label>
+                    <div class="col-8">
+                        <input type="number" th:field="*{userPhoneNumber}" class="form-control" required minlength="2"
+                            maxlength="20" />
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Address: </label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{userAddress}" class="form-control" required minlength="2"
+                            maxlength="20" />
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Roles: </label>
+                    <div class="col-8">
+                        <th:block th:each="role: ${listRoles}">
+                            <input type="checkbox" th:field="*{userRole}" th:text="${role.roleName}" th:value="${role.roleId}"
+                                class="m-2" />
+                        </th:block>
+                    </div>
+                </div> 
+
+                <div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <br>
+    <div class="container">
+			<form th:action="@{/logout}" method="post">
+				
+				<input type="submit" value="Sign Out"/>
+				
+			</form>
+		</div>
+
+</body>
+
+</html>
